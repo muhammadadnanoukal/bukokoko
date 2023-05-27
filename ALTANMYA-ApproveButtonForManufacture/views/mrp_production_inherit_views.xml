@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_approve_button" model="ir.ui.view">
+        <field name="name">view.approve.button</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <field name="state" position="replace">
+                <field name="state" widget="statusbar"
+                       statusbar_visible="draft,approve,confirmed,progress,done"/>
+            </field>
+
+            <xpath expr="//button[@name='action_confirm']" position="before">
+                <button id="button_approve" name="action_approve" string="Approve"
+                        class="btn-primary" type="object"
+                        states="draft"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', '!=', 'approve')]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_scrap']" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', 'in', ('cancel', 'draft', 'approve'))]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_scrap']" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', 'in', ('cancel', 'draft', 'approve'))]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_toggle_is_locked']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|', ('show_lock', '=', False), ('is_locked', '=', False),
+                    ('state', '=', 'approve')]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
