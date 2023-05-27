@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+
+  <record id="view_crm_stage_form" model="ir.ui.view">
+     <field name="name">view_crm_stage_form</field>
+     <field name="model">crm.stage</field>
+     <field name="inherit_id" ref="crm.crm_stage_form" />
+     <field name="arch" type="xml">
+         <xpath expr="//field[@name='team_id']" position="after">
+             <field name="state"/>
+             <field name="sales_status_selection" attrs="{'invisible': [('state', '!=', 'sales_status')]}"/>
+             <field name="manufacturing_selection" attrs="{'invisible': [('state', '!=', 'manufacturing')]}"/>
+             <field name="operation_type_sales" attrs="{'invisible': [('state', '!=', 'operation_type_sales')]}"/>
+             <field name="operation_type_manufacturing" attrs="{'invisible': [('state', '!=', 'operation_type_manufacturing')]}"/>
+         </xpath>
+      </field>
+     </record>
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="crm_stage_rec_1" model="crm.stage">
+            <field name="name">Pricing</field>
+            <field name="state">sales_status</field>
+            <field name="sales_status_selection">draft</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="crm_stage_rec_2" model="crm.stage">
+            <field name="name">Contracting</field>
+            <field name="state">sales_status</field>
+            <field name="sales_status_selection">tentative approval</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="crm_stage_rec_3" model="crm.stage">
+            <field name="name">Approved</field>
+            <field name="state">sales_status</field>
+            <field name="sales_status_selection">sale</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="crm_stage_rec_4" model="crm.stage">
+            <field name="name">Under Production</field>
+            <field name="state">manufacturing</field>
+            <field name="manufacturing_selection">confirmed</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="crm_stage_rec_4" model="crm.stage">
+            <field name="name">Produced</field>
+            <field name="state">manufacturing</field>
+            <field name="manufacturing_selection">done</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <record id="crm_stage_rec_5" model="crm.stage">
+            <field name="name">Stored</field>
+            <field name="state">operation_type_manufacturing</field>
+            <field name="sequence">7</field>
+        </record>
+
+        <record id="crm_stage_rec_6" model="crm.stage">
+            <field name="name">Under Installation</field>
+            <field name="state">operation_type_sales</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <record id="crm_stage_rec_7" model="crm.stage">
+            <field name="name">Done</field>
+            <field name="state">operation_type_sales</field>
+            <field name="sequence">9</field>
+        </record>
+
+    </data>
+</odoo>

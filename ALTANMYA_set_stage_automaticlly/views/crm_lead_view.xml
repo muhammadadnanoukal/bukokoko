@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="crm_lead_form_view_inherit" model="ir.ui.view">
+        <field name="name">crm_lead_form_inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="replace">
+                <field name="stage_id" widget="statusbar" class="o_field_statusbar"
+                       options="{ 'fold_field': 'fold'}"
+                       domain="['|', ('team_id', '=', team_id), ('team_id', '=', False)]"
+                       attrs="{'invisible': ['|', ('active', '=', False), ('type', '=', 'lead')]}"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='user_id']" position="after">-->
+<!--                <field name="check_status" widget="badge" decoration-success="check_status == 'compatible'"-->
+<!--                       decoration-danger="check_status == 'not_compatible'"/>-->
+<!--            </xpath>-->
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="replace">
+                        <button name="action_set_won_rainbowman" string="Won"
+                            type="object" class="oe_highlight" data-hotkey="w" title="Mark as won"
+                            invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+<!--    &lt;!&ndash; Kanban View &ndash;&gt;-->
+<!--    <record id="crm_lead_kanban_view_inherit" model="ir.ui.view">-->
+<!--        <field name="name">crm.lead.kanban.view.inherit</field>-->
+<!--        <field name="model">crm.lead</field>-->
+<!--        <field name="priority" eval="1"/>-->
+<!--        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//div[@class='oe_kanban_footer'][1]" position="before">-->
+<!--                <field name="check_status" widget="badge" decoration-success="check_status == 'compatible'"-->
+<!--                       decoration-danger="check_status == 'not_compatible'"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <!-- List View -->
+<!--    <record id="view_crm_lead_tree_view_inherit" model="ir.ui.view">-->
+<!--        <field name="name">crm.lead.tree.view.inherit</field>-->
+<!--        <field name="model">crm.lead</field>-->
+<!--        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//tree/field[@name='name']" position="after">-->
+<!--                <field name="check_status" widget="badge" decoration-success="check_status == 'compatible'"-->
+<!--                       decoration-danger="check_status == 'not_compatible'"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>
