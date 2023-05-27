@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id='contract_form' model='ir.ui.view'>
+        <field name="name">contract.form</field>
+        <field name="model">contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <span class="o_form_label o_hr_form_label">
+                    </span>
+                    <h2 col="1">
+                        <field name="name" style="font-size: 40px;"/>
+                    </h2>
+                    <h3>
+                        <label for="lead" string="Lead/Opportunity" class="pe-5"/>
+                        <field name="lead"/>
+                    </h3>
+                </sheet>
+<!--                <div class="oe_chatter">-->
+<!--                    <field name="message_follower_ids" widget="mail_followers"/>-->
+<!--                    <field name="message_ids" widget="mail_thread"/>-->
+<!--                </div>-->
+            </form>
+        </field>
+    </record>
+
+    <record id='contract_view_tree' model='ir.ui.view'>
+        <field name="name">contract.view.tree</field>
+        <field name="model">contract</field>
+        <field name="arch" type="xml">
+            <tree string="Name">
+                <field name="name"/>
+                <field name="lead"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_contract" model="ir.actions.act_window">
+        <field name="name">test</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contract</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your First Work Decision!
+            </p>
+        </field>
+    </record>
+
+    <!--    <menuitem-->
+    <!--            id="menu_mission_admin_new_employee"-->
+    <!--            name="المهمة"-->
+    <!--            parent="hr.menu_config_recruitment"-->
+    <!--            action="action_contract"-->
+    <!--            sequence="9"/>-->
+
+</odoo>
+

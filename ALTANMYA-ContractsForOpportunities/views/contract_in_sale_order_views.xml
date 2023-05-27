@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_form_1" model="ir.ui.view">
+        <field name="name">contract_form_1</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='opportunity_id']" position="after">
+                <field name="opportunity_contract_ids" invisible="1"/>
+                <field name="contract"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_crm_contract_search" model="ir.ui.view">
+        <field name="name">sale_order_crm_contract_search_inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_quotation']" position="after">
+                <filter name="g_contract" string="Contract" context="{'group_by':'contract'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_confirm1_form" model="ir.ui.view">
+        <field name="name">sale.order.confirm1.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_quotation_send']" position="after">
+                <field name="contract" invisible="1"/>
+                <button name="action_tentative_confirm" id="action_tentative_confirm" string="Tentative Approval"
+                        type="object" class="btn-primary"
+                        attrs="{'invisible':['|', ('contract', '=', False), ('state', 'not in', ['draft'])]}"/>
+
+                <button name="action_final_confirm" id="action_final_confirm" string="Final Approval" type="object"
+                        class="btn-primary"
+                        states="tentative approval"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" type="object" string="Cancel"
+                        attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale','tentative approval','final approval']), ('id', '=', False)]}"
+                        data-hotkey="z"/>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm'][2]" position="replace">
+                <button name="action_confirm" data-hotkey="v"
+                        string="Confirm" type="object" context="{'validate_analytic': True}" class="btn-primary"
+                        attrs="{'invisible': ['|', '&amp;', ('state', 'in', ['sent','final approval','tentative approval','sale','cancel','done']), ('contract', '=', False), '&amp;', ('state', 'in', ['draft','sent','tentative approval','sale','done','cancel']), ('contract', '!=', False)]}"/>
+                <!--                <attribute name="attrs">{'invisible': ['|', '&amp;', ('state', 'in', ['sent','final approval','tentative approval','sale','cancel','done']), ('contract', '=', False), '&amp;', ('state', 'in', ['draft','sent','tentative approval','sale','done','cancel']), ('contract', '!=', False)]}</attribute>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_state_form" model="ir.ui.view">
+        <field name="name">sale.order.state.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="state" position="replace">
+                <field name="state" widget="statusbar"
+                       statusbar_visible="draft,sent,sale,tentative approval,final approval"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_tree_buttons" model="ir.ui.view">
+        <field name="name">view.tree.buttons</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='create_date']" position="before">
+                <field name="contract" invisible="1"/>
+                <button name="action_tentative_confirm" string="Tentative Approval" class="btn-primary" type="object"
+                        attrs="{'invisible':['|', ('contract', '=', False), ('state', 'not in', ['draft'])]}"/>
+            </xpath>
+            <xpath expr="//field[@name='create_date']" position="before">
+                <button name="action_final_confirm" string="Final Approval"
+                        class="btn-primary" type="object"
+                        states="tentative approval"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
