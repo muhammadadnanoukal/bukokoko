@@ -1,0 +1,1 @@
+from . import sale_order_line_inherit, bom_inherit, product_inherit

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_bom_form_view_inherit_extension" model="ir.ui.view">
+        <field name="name">mrp.bom.form.view.inherit.extension</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='components']/field[1]/tree[1]/field[@name='product_id']" position="attributes">
+                <attribute name="domain">[
+                    ('company_id', 'in', [company_id, False]),'|',
+                    ('product_tmpl_id.pricing_type_square_tmpl', '=', parent.pricing_type_square),
+                    ('product_tmpl_id.pricing_type_component_tmpl', '=', parent.pricing_type_component)]
+                </attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='bom_line_ids']" position="after">
+                <group>
+                    <group colspan="4"></group>
+                    <group class="oe_subtotal_footer oe_right" colspan="2">
+                        <field class="" name="total_amount"/>
+                    </group>
+                    <div class="clearfix"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@class='text-start'][1]" position="replace">
+                <field name="attachments_count" class="text-start" invisible="1" string="Attachments Count"/>
+            </xpath>
+            <xpath expr="//button[@class='float-end']" position="replace">
+                <button name="action_see_attachments" invisible="1" string="Product Attachments" type="object"
+                        icon="fa-files-o"
+                        aria-label="Product Attachments" title="Product Attachments"
+                        class="float-end"/>
+            </xpath>
+            <xpath expr="//page[@name='components']/field[1]/tree[1]/field[@name='product_qty']" position="after">
+                <field name="check_field" invisible="1" />
+                <field name="price_unit" attrs="{'readonly': [('check_field', '!=', True)]}"/>
+            </xpath>
+            <xpath expr="//page[@name='components']/field[1]/tree[1]/field[@name='product_uom_id']" position="after">
+                <field name="price_subtotal"/>
+            </xpath>
+
+            <xpath expr="//div[@class='o_row'][1]" position="after">
+                <field name="pricelist_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name='pricelist_id']" position="after">
+                <label for="pricing_type_square" string="Pricing Type"/>
+                <div>
+                    <label for="pricing_type_square" string="Square Meter"/>
+                    <field name="pricing_type_square" style="margin-right:10px;"/>
+
+                    <label for="pricing_type_component" string="Component"/>
+                    <field name="pricing_type_component" style="margin-right:10px;"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//page[@name='components']/field[1]/tree[1]/field[@name='product_uom_id']" position="after">
+                <field name="estimated_installation_date"
+                       attrs="{'readonly': True}"
+                       optional="hide" force_save="1"/>
+                <field name="check_field" invisible="1"/>
+            </xpath>
+            <xpath expr="//notebook[1]" position="after">
+                <group>
+                    <field name="total_amount" attrs="{'invisible': [('type', '!=', 'custom_normal')]}"/>
+                    <field name="total_installation_date" force_save="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

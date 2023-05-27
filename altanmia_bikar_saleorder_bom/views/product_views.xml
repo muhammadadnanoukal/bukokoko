@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+          <record id="product_template_bikar_inherit_form1" model="ir.ui.view">
+            <field name="name">product.template.bikar.form.inherit1</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[3]" position="after">
+                    <span class="d-inline-block">
+                        <field name="pricing_type_square_tmpl"/>
+                        <label for="pricing_type_square_tmpl"/>
+                        <field name="pricing_type_component_tmpl"/>
+                        <label for="pricing_type_component_tmpl"/>
+                    </span>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_form_view_inherit_extension" model="ir.ui.view">
+            <field name="name">mrp.form.view.inherit.extension</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="mrp.view_mrp_product_template_form_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='days_to_prepare_mo']" position="before">
+                    <field name="estimated_installation_date_tmpl" string="Estimated Installation Days" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
